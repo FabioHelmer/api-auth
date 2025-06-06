@@ -1,7 +1,9 @@
 package com.fh.ApiAuth.entities;
 
+import com.fh.ApiAuth.controllers.dto.LoginRequest;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Set;
 import java.util.UUID;
@@ -30,4 +32,7 @@ public class User {
     )
     private Set<Role> roles;
 
+    public boolean isLoginCorret(LoginRequest loginRequest, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(loginRequest.password(), this.password);
+    }
 }
